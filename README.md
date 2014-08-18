@@ -1,16 +1,29 @@
-What is clog?
+clog - a colorized log tail utility
 -------------
+
+**NOTE** this is a fork of the excellent original work hosted at 
+[tasktools.org](http://tasktools.org/projects/clog.html).
+
+original text follows.
+
+## What is Clog?
 
 Ever done something like this:
 
+```shell
 	$ tail -f /var/log/something.log
+```
 
 and left that running in a terminal, while you debug or run some program?  Were
 you able to spot important information as it scrolled by?  It's not easy.
 
 Clog is a filter, that you run like this:
 
+```shell
 	$ tail -f /var/log/something.log | clog something
+```
+
+## Clog Rules
 
 The 'something' argument to clog is a section, which refers to a section in
 ~/.clogrc with a distinct set of rules.  Those rules list patterns to look for,
@@ -18,7 +31,9 @@ and actions to take when the pattern is matched by a line.  A typical example
 might be that you want to highlight any line that contains the pattern 'severe'.
 This entry in ~/clogrc achieves this:
 
+```shell
 	something rule /severe/ --> bold line
+```
 
 This rule is in the 'something' section, the pattern is 'severe', and the action
 taken is to embolden the whole line.  Pattern 'severe' should probably be more
@@ -27,20 +42,22 @@ optional.
 
 Any color can be used, in both the 16- and 256-color space.  Some examples are:
 
-	bold
-	underline
-  bold blue
-  underline on green
-  black on white
-	bold red on bright white
-  rgb200 on grey4
+ - bold
+ - underline
+ - bold blue
+ - underline on green
+ - black on white
+ - bold red on bright white
+ - rgb200 on grey4
 
 Instead of coloring the whole line, specifying 'match' instead will only color
 the parts of the line that match.
 
 The format of the rules is:
 
+```shell
   <section> rule /<pattern>/ --> <color> <action>
+```
 
 The section is simply a way to allow multiple rules sets, so that one .clogrc
 file can serve multiple uses.  The pattern is any supported Standard C Library
@@ -51,4 +68,3 @@ Note that there is a default section, called 'default'.  Putting rules in the
 default section means that no section need be specified on the command line.
 Multiple sections may be specified, and the rules are combined.
 
----
